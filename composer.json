@@ -1,0 +1,34 @@
+{
+	"name": "robregonm/yii2-auth",
+	"description": "Yii 2 User Authentication & Role Based Access Control (RBAC) Module",
+	"keywords": ["yii", "yii2", "user", "auth", "authentication", "rbac", "access"],
+	"type": "yii2-extension",
+	"license": "BSD-3-Clause",
+	"support": {
+		"issues": "https://github.com/robregonm/yii2-auth/issues?state=open",
+		"forum": "http://www.yiiframework.com/forum/",
+		"wiki": "http://www.yiiframework.com/wiki/",
+		"source": "https://github.com/robregonm/yii2-auth"
+	},
+	"authors": [
+		{
+			"name": "robregonm",
+			"email": "robregonm@gmail.com",
+			"homepage": "http://obregon.co",
+			"role": "Author"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": "*",
+		"yiisoft/yii2-bootstrap": "*",
+		"yiisoft/yii2-composer": "dev-master",
+		"yiisoft/yii2-swiftmailer": "dev-master"
+	},
+	"autoload": {
+		"psr-0": {
+			"auth\\": ""
+		}
+	},
+	"target-dir": "auth"
+}
