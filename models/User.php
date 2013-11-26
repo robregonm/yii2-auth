@@ -41,6 +41,13 @@ class User extends ActiveRecord implements IdentityInterface
 
 	private $_isSuperAdmin = null;
 
+	private $statuses = [
+		self::STATUS_DELETED => 'Deleted',
+		self::STATUS_INACTIVE => 'Inactive',
+		self::STATUS_ACTIVE => 'Active',
+		self::STATUS_SUSPENDED => 'Suspended',
+	];
+
 	public function behaviors()
 	{
 		return [
@@ -55,6 +62,14 @@ class User extends ActiveRecord implements IdentityInterface
 				'timestamp' => new Expression('CURRENT_TIMESTAMP')
 			],
 		];
+	}
+
+	public function getStatus($status = null)
+	{
+		if ($status === null) {
+			return $this->statuses[$this->status];
+		}
+		return $this->statuses[$status];
 	}
 
 	/**
