@@ -35,6 +35,20 @@ class LoginForm extends Model
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'username' => Yii::t('auth.user', 'Username or Email'),
+			'password' => Yii::t('auth.user', 'Password'),
+			'rememberMe' => Yii::t('auth.user', 'Remember Me'),
+			'verifyCode' => Yii::t('auth.user', 'Verify Code'),
+		];
+	}
+
+
+	/**
 	 * Validates the password.
 	 * This method serves as the inline validation for password.
 	 */
@@ -42,7 +56,7 @@ class LoginForm extends Model
 	{
 		$user = $this->getUser();
 		if (!$user || !$user->validatePassword($this->password)) {
-			$this->addError('password', 'Incorrect username or password.');
+			$this->addError('password', Yii::t('auth.user', 'Incorrect username or password.'));
 		}
 	}
 

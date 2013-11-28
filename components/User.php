@@ -43,10 +43,7 @@ class User extends BaseUser
 		parent::afterLogin($identity, $cookieBased);
 		$this->identity->setScenario(self::EVENT_AFTER_LOGIN);
 		$this->identity->setAttribute('last_visit_time', new Expression('CURRENT_TIMESTAMP'));
-		/*
-			$this->identity->setAttribute('login_ip', ip2long(\Yii::$app->getRequest()->getUserIP()));
-			$this->identity->setAttribute('login_time', time());
-		*/
+		// $this->identity->setAttribute('login_ip', ip2long(\Yii::$app->getRequest()->getUserIP()));
 		$this->identity->save(false);
 	}
 }

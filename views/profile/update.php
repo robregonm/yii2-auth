@@ -10,8 +10,8 @@ use auth\models\User;
  * @var yii\widgets\ActiveForm $form
  */
 
-$this->title = 'Update Profile';
-$this->params['breadcrumbs'][] = ['label' => 'Profile', 'url' => ['view']];
+$this->title = \Yii::t('auth.user', 'Update Profile');
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('auth.user', 'Profile'), 'url' => ['view']];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <?php $form = ActiveForm::begin(); ?>

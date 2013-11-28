@@ -141,14 +141,14 @@ class User extends ActiveRecord implements IdentityInterface
 			['status', 'default', 'value' => static::STATUS_ACTIVE, 'on' => 'signup'],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
-			['email', 'unique', 'message' => 'This userrname has already been taken.'],
+			['email', 'unique', 'message' => Yii::t('auth.user', 'This username has already been taken.')],
 			['username', 'string', 'min' => 2, 'max' => 255],
 
 			['email', 'filter', 'filter' => 'trim'],
 			['email', 'required'],
 			['email', 'email'],
-			['email', 'unique', 'message' => 'This email address has already been taken.'],
-			['email', 'exist', 'message' => 'There is no user with such email.', 'on' => 'requestPasswordResetToken'],
+			['email', 'unique', 'message' => Yii::t('auth.user', 'This email address has already been taken.')],
+			['email', 'exist', 'message' => Yii::t('auth.user', 'There is no user with such email.'), 'on' => 'requestPasswordResetToken'],
 
 			['password', 'required', 'on' => 'signup'],
 			['password', 'string', 'min' => 6],
@@ -173,16 +173,17 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		return [
 			'id' => 'ID',
-			'username' => 'Username',
-			'email' => 'Email',
-			'password_hash' => 'Password Hash',
-			'password_reset_token' => 'Password Reset Token',
-			'auth_key' => 'Auth Key',
-			'status' => 'Status',
-			'last_visit_time' => 'Last Visit Time',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
-			'delete_time' => 'Delete Time',
+			'username' => Yii::t('auth.user', 'Username'),
+			'email' => Yii::t('auth.user', 'Email'),
+			'password' => Yii::t('auth.user', 'Password'),
+			'password_hash' => Yii::t('auth.user', 'Password Hash'),
+			'password_reset_token' => Yii::t('auth.user', 'Password Reset Token'),
+			'auth_key' => Yii::t('auth.user', 'Auth Key'),
+			'status' => Yii::t('auth.user', 'Status'),
+			'last_visit_time' => Yii::t('auth.user', 'Last Visit Time'),
+			'create_time' => Yii::t('auth.user', 'Create Time'),
+			'update_time' => Yii::t('auth.user', 'Update Time'),
+			'delete_time' => Yii::t('auth.user', 'Delete Time'),
 		];
 	}
 

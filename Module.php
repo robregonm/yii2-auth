@@ -41,8 +41,13 @@ class Module extends \yii\base\Module
 	{
 		parent::init();
 
-		// custom initialization code goes here
-	}
+		\Yii::$app->getI18n()->translations['auth.*'] = [
+			'class' => 'yii\i18n\PhpMessageSource',
+			'basePath' => __DIR__.'/messages',
+		];
+		$this->setAliases([
+			'@auth' => __DIR__
+		]);	}
 
     /**
      * Returns the module version number.
