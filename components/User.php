@@ -8,6 +8,7 @@
 namespace auth\components;
 
 use yii\web\User as BaseUser;
+use yii\db\Expression;
 
 /**
  * User is the class for the "user" application component that manages the user authentication status.
@@ -40,11 +41,12 @@ class User extends BaseUser
 	protected function afterLogin($identity, $cookieBased)
 	{
 		parent::afterLogin($identity, $cookieBased);
-		/*if (\Yii::$app->getModule('user')->trackable) {
+		$this->identity->setScenario(self::EVENT_AFTER_LOGIN);
+		$this->identity->setAttribute('last_visit_time', new Expression('CURRENT_TIMESTAMP'));
+		/*
 			$this->identity->setAttribute('login_ip', ip2long(\Yii::$app->getRequest()->getUserIP()));
 			$this->identity->setAttribute('login_time', time());
-		}*/
-		$this->identity->trigger(self::EVENT_AFTER_LOGIN);
+		*/
 		$this->identity->save(false);
 	}
 }

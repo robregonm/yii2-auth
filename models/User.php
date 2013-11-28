@@ -32,8 +32,6 @@ class User extends ActiveRecord implements IdentityInterface
 	const STATUS_ACTIVE = 2;
 	const STATUS_SUSPENDED = 3;
 
-	const EVENT_AFTER_LOGIN = 'afterLogin';
-
 	/**
 	 * @var string the raw password. Used to collect password input and isn't saved in database
 	 */
@@ -55,9 +53,7 @@ class User extends ActiveRecord implements IdentityInterface
 				'class' => 'yii\behaviors\AutoTimestamp',
 				'attributes' => [
 					self::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
-					self::EVENT_BEFORE_UPDATE => 'update_time',
 					self::EVENT_BEFORE_DELETE => 'delete_time',
-					self::EVENT_AFTER_LOGIN => 'last_visit_time',
 				],
 				'timestamp' => new Expression('CURRENT_TIMESTAMP')
 			],
@@ -145,15 +141,16 @@ class User extends ActiveRecord implements IdentityInterface
 			['status', 'default', 'value' => static::STATUS_ACTIVE, 'on' => 'signup'],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
+			['email', 'unique', 'message' => 'This userrname has already been taken.'],
 			['username', 'string', 'min' => 2, 'max' => 255],
 
 			['email', 'filter', 'filter' => 'trim'],
 			['email', 'required'],
 			['email', 'email'],
-			['email', 'unique', 'message' => 'This email address has already been taken.', 'on' => 'signup'],
+			['email', 'unique', 'message' => 'This email address has already been taken.'],
 			['email', 'exist', 'message' => 'There is no user with such email.', 'on' => 'requestPasswordResetToken'],
 
-			['password', 'required'],
+			['password', 'required', 'on' => 'signup'],
 			['password', 'string', 'min' => 6],
 		];
 	}
@@ -162,10 +159,11 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		return [
 			'signup' => ['username', 'email', 'password'],
+			'profile' => ['username', 'email', 'password'],
 			'resetPassword' => ['password'],
 			'requestPasswordResetToken' => ['email'],
 			'login' => ['last_visit_time'],
-		];
+		] + parent::scenarios();
 	}
 
 	/**
@@ -205,6 +203,10 @@ class User extends ActiveRecord implements IdentityInterface
 			if ($this->isNewRecord) {
 				$this->auth_key = Security::generateRandomKey();
 			}
+			if ($this->getScenario() !== yii\web\User::EVENT_AFTER_LOGIN) {
+				$this->setAttribute('update_time', new Expression('CURRENT_TIMESTAMP'));
+			}
+
 			return true;
 		}
 		return false;
