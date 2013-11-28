@@ -15,6 +15,30 @@ use Yii;
 use yii\base\Action;
 use yii\base\ActionFilter;
 
+/**
+ * Auth AccessControl provides RBAC access control.
+ *
+ * Auth AccessControl is an action filter. It will check the item names to find
+ * the first match that will dictate whether to allow or deny the access to the requested controller
+ * action. If no matches, the access will be denied.
+ *
+ * To use Auth AccessControl, declare it in the `behaviors()` method of your controller class.
+ * For example, the following declaration will enable rbac filtering in your controller.
+ *
+ * ~~~
+ * public function behaviors()
+ * {
+ *     return [
+ *         'access' => [
+ *             'class' => \auth\AccessControl::className(),
+ *         ],
+ *     ];
+ * }
+ * ~~~
+ *
+ * @author Ricardo Obregón <robregonm@gmail.com>
+ * @since 2.0
+ */
 class AccessControl extends ActionFilter
 {
 	/**
