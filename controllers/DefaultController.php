@@ -12,7 +12,7 @@ use auth\models\User;
 class DefaultController extends Controller
 {
 	/**
-	 * @var \app\modules\user\Module
+	 * @var \auth\Module
 	 */
 	public $module;
 

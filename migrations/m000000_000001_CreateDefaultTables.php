@@ -48,7 +48,7 @@ class m000000_000001_CreateDefaultTables extends \yii\db\Migration
 					 'password_hash' => \yii\db\Schema::TYPE_STRING . '(128) NOT NULL',
 					 'password_reset_token' => \yii\db\Schema::TYPE_STRING . '(32)',
 					 'auth_key' => \yii\db\Schema::TYPE_STRING . '(128)',
-					 'status' => \yii\db\Schema::TYPE_INTEGER . ' NOT NULL DEFAULT ' . \app\modules\user\models\User::STATUS_ACTIVE,
+					 'status' => \yii\db\Schema::TYPE_INTEGER . ' NOT NULL DEFAULT ' . \auth\models\User::STATUS_ACTIVE,
 					 'last_visit_time' => \yii\db\Schema::TYPE_TIMESTAMP,
 					 'create_time' => \yii\db\Schema::TYPE_TIMESTAMP . ' NOT NULL',
 					 'update_time' => \yii\db\Schema::TYPE_TIMESTAMP,
@@ -135,7 +135,7 @@ class m000000_000001_CreateDefaultTables extends \yii\db\Migration
 
 
 		// Creates the default admin user
-		$adminUser = new app\modules\user\models\User();
+		$adminUser = new \auth\models\User();
 		$adminUser->setScenario('signup');
 
 		echo 'Please type the admin user info: ' . PHP_EOL;

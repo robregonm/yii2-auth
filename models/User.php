@@ -204,7 +204,7 @@ class User extends ActiveRecord implements IdentityInterface
 			if ($this->isNewRecord) {
 				$this->auth_key = Security::generateRandomKey();
 			}
-			if ($this->getScenario() !== yii\web\User::EVENT_AFTER_LOGIN) {
+			if ($this->getScenario() !== \yii\web\User::EVENT_AFTER_LOGIN) {
 				$this->setAttribute('update_time', new Expression('CURRENT_TIMESTAMP'));
 			}
 

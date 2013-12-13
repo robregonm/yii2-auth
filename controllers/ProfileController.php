@@ -22,7 +22,7 @@ class ProfileController extends Controller {
 	public $defaultAction = 'view';
 
 	/**
-	 * @var \app\modules\user\Module
+	 * @var \auth\Module
 	 */
 	public $module;
 
