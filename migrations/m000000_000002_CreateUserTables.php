@@ -1,42 +1,11 @@
 <?php
-class m000000_000001_CreateDefaultTables extends \yii\db\Migration
+
+class m000000_000002_CreateUserTables extends \yii\db\Migration
 {
 	private $tableMap;
 
-	private function createAuthTables()
-	{
-		$path = __DIR__ . '/sql';
-		if (!is_readable($path)) {
-			throw new \yii\console\Exception('Missing "sql" directory.');
-		}
-
-		$authManager = Yii::$app->getComponent('authManager');
-
-		if (!$authManager) {
-			throw new \yii\console\Exception('"authManager" component must be configured in console config file (e.g. config/console.php)');
-		}
-
-		$scriptFile = $path . DIRECTORY_SEPARATOR . 'schema-' . $this->db->driverName . '.sql';
-		$script = file_get_contents($scriptFile);
-		$script = str_replace(
-			['{AuthAssignment}', '{AuthItemChild}', '{AuthItem}'],
-			[$authManager->assignmentTable, $authManager->itemChildTable, $authManager->itemTable],
-			$script
-		);
-		if ($script === false) {
-			throw new \yii\console\Exception('Cannot read SQL script file');
-		}
-		$sqlScript = explode(';', $script);
-		foreach ($sqlScript as $sql) {
-			if (trim($sql) != '') {
-				$this->execute($sql);
-			}
-		}
-	}
-
 	public function safeUp()
 	{
-		$this->createAuthTables();
 		$tableMap = Yii::$app->getModule('auth')->tableMap;
 
 		$this->createTable(
@@ -146,6 +115,7 @@ class m000000_000001_CreateDefaultTables extends \yii\db\Migration
 		if (!$adminUser->save()) {
 			throw new \yii\console\Exception('Error when creating admin user.');
 		}
+		echo 'User created successfully.' . PHP_EOL;
 	}
 
 	private function readStdinUser($prompt, $model, $field, $default = '')
@@ -161,15 +131,6 @@ class m000000_000001_CreateDefaultTables extends \yii\db\Migration
 		return $input;
 	}
 
-	private function dropAuthTables()
-	{
-		$authManager = Yii::$app->getComponent('authManager');
-		$this->dropTable($authManager->assignmentTable);
-		$this->dropTable($authManager->itemChildTable);
-		$this->dropTable($authManager->itemTable);
-
-	}
-
 	public function safeDown()
 	{
 		$tableMap = Yii::$app->getModule('auth')->tableMap;
@@ -177,6 +138,5 @@ class m000000_000001_CreateDefaultTables extends \yii\db\Migration
 		$this->dropTable($tableMap['ProfileField']);
 		$this->dropTable($tableMap['ProfileFieldType']);
 		$this->dropTable($tableMap['User']);
-		$this->dropAuthTables();
 	}
 }
