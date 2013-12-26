@@ -26,7 +26,7 @@ to the require section of your `composer.json` file.
 Once the extension is installed, simply run migrations:
 
 ```bash
-$ php yii migrate/up --migrationPath=@vendor/robregonm/yii2-auth/auth/migrations
+$ php yii migrate/up --migrationPath=@auth/migrations
 ```
 
 And modify your application configuration as follows:
