@@ -3,6 +3,7 @@
 namespace auth\controllers;
 
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Security;
@@ -134,7 +135,7 @@ class DefaultController extends Controller
 		]);
 
 		if (!$model) {
-			throw new HttpException(400, 'Wrong password reset token.');
+			throw new BadRequestHttpException('Wrong password reset token.');
 		}
 
 		$model->scenario = 'resetPassword';

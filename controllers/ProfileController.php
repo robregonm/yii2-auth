@@ -10,9 +10,9 @@ namespace auth\controllers;
 
 use Yii;
 use yii\web\Controller;
-use yii\web\HttpException;
 use yii\helpers\Security;
 use auth\models\User;
+use yii\web\NotFoundHttpException;
 
 class ProfileController extends Controller {
 	/**
@@ -82,7 +82,7 @@ class ProfileController extends Controller {
 		if (($model = Yii::$app->user->getIdentity()) !== null) {
 			return $model;
 		} else {
-			throw new HttpException(404, 'The requested page does not exist.');
+			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
 

@@ -5,7 +5,7 @@ namespace auth\controllers;
 use auth\models\User;
 use auth\models\UserSearch;
 use yii\web\Controller;
-use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 
 /**
@@ -113,7 +113,7 @@ class UserController extends Controller
 		if (($model = User::find($id)) !== null) {
 			return $model;
 		} else {
-			throw new HttpException(404, 'The requested page does not exist.');
+			throw new NotFoundHttpException('The requested page does not exist.');
 		}
 	}
 }
