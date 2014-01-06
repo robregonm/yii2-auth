@@ -46,4 +46,9 @@ class User extends BaseUser
 		// $this->identity->setAttribute('login_ip', ip2long(\Yii::$app->getRequest()->getUserIP()));
 		$this->identity->save(false);
 	}
+
+	public function getIsSuperAdmin()
+	{
+		return $this->identity->getIsSuperAdmin();
+	}
 }
