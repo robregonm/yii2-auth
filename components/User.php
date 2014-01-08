@@ -51,4 +51,13 @@ class User extends BaseUser
 	{
 		return $this->identity->getIsSuperAdmin();
 	}
+
+	public function checkAccess($operation, $params = [], $allowCaching = true)
+	{
+		// Always return true when SuperAdmin user
+		if ($this->getIsSuperAdmin()) {
+			return true;
+		}
+		return parent::checkAccess($operation, $params, $allowCaching);
+	}
 }
