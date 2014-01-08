@@ -36,7 +36,7 @@ create table `{AuthItemChild}`
 create table `{AuthAssignment}`
 (
    `item_name`            varchar(64) not null,
-   `user_id`              varchar(64) not null,
+   `user_id`              integer not null,
    `biz_rule`              text,
    `data`                 text,
    primary key (`item_name`,`user_id`),
