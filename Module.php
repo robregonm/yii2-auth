@@ -28,8 +28,7 @@ class Module extends \yii\base\Module
         'ProfileFieldType' => 'ProfileFieldType',
     );
 
-    public $layoutLogged = '//layouts/column2';
-    public $layoutPathLogged;
+    public $layoutLogged;
 
     public $attemptsBeforeCaptcha = 3; // Unsuccessful Login Attempts before Captcha
 

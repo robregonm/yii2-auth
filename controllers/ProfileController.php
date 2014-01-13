@@ -14,12 +14,21 @@ use yii\helpers\Security;
 use auth\models\User;
 use yii\web\NotFoundHttpException;
 
-class ProfileController extends Controller {
+class ProfileController extends Controller
+{
 	/**
 	 * @var string the ID of the action that is used when the action ID is not specified
 	 * in the request. Defaults to 'index'.
 	 */
 	public $defaultAction = 'view';
+
+	public function init()
+	{
+		$layout = $this->module->layoutLogged;
+		if (!empty($layout)) {
+			$this->layout = $layout;
+		}
+	}
 
 	/**
 	 * @var \auth\Module
@@ -43,6 +52,7 @@ class ProfileController extends Controller {
 
 	/**
 	 * Displays current User model.
+	 *
 	 * @return mixed
 	 */
 	public function actionView()
@@ -55,6 +65,7 @@ class ProfileController extends Controller {
 	/**
 	 * Updates the current User model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
+	 *
 	 * @param integer $id
 	 * @return mixed
 	 */
@@ -74,6 +85,7 @@ class ProfileController extends Controller {
 	/**
 	 * Finds the logged in User model based on its primary key value.
 	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 *
 	 * @return User the loaded model
 	 * @throws HttpException if the model cannot be found
 	 */

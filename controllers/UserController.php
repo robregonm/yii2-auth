@@ -25,6 +25,14 @@ class UserController extends Controller
 		];
 	}
 
+	public function init()
+	{
+		$layout = $this->module->layoutLogged;
+		if (!empty($layout)) {
+			$this->layout = $layout;
+		}
+	}
+
 	/**
 	 * Lists all User models.
 	 * @return mixed
