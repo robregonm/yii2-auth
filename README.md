@@ -36,6 +36,9 @@ return [
 	'modules' => [
 	    ...
 		'user' => 'auth\Module',
+		'layout' => '//homepage', // Layout when not logged in yet
+		'layoutLogged' => '//main', // Layout for logged in users
+		'superAdmins' = ['admin'], // SuperAdmin users
 		...
 	],
 	...
