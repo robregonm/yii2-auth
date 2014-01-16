@@ -29,6 +29,5 @@
 		"psr-4": {
 			"auth\\": ""
 		}
-	},
-	"target-dir": "auth"
+	}
 }
