@@ -49,6 +49,9 @@ class User extends BaseUser
 
 	public function getIsSuperAdmin()
 	{
+		if ($this->isGuest) {
+			return false;
+		}
 		return $this->identity->getIsSuperAdmin();
 	}
 
