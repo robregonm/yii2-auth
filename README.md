@@ -35,10 +35,19 @@ And modify your application configuration as follows:
 return [
 	'modules' => [
 	    ...
-		'user' => 'auth\Module',
-		'layout' => '//homepage', // Layout when not logged in yet
-		'layoutLogged' => '//main', // Layout for logged in users
-		'superAdmins' = ['admin'], // SuperAdmin users
+	        'auth' => [
+	            'class' => 'auth\Module',
+	            'layout' => '//homepage', // Layout when not logged in yet
+	            'layoutLogged' => '//main', // Layout for logged in users
+	            'attemptsBeforeCaptcha' => 3, // Optional
+	            'superAdmins' => ['admin'], // SuperAdmin users
+	            'tableMap' => [ // Optional, but if defined, all must be declared
+	                'User' => 'user',
+	                'UserStatus' => 'user_status',
+	                'ProfileFieldValue' => 'profile_field_value',
+	                'ProfileField' => 'profile_field',
+	                'ProfileFieldType' => 'profile_field_type',
+	            ],
 		...
 	],
 	...
