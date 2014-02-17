@@ -1,4 +1,5 @@
 <?php
+use yii\db\Schema;
 
 class m000000_000002_CreateUserTables extends \yii\db\Migration
 {
@@ -11,17 +12,17 @@ class m000000_000002_CreateUserTables extends \yii\db\Migration
 		$this->createTable(
 			 $tableMap['User'],
 				 array(
-					 'id' => \yii\db\Schema::TYPE_PK,
-					 'username' => \yii\db\Schema::TYPE_STRING . '(64) NOT NULL',
-					 'email' => \yii\db\Schema::TYPE_STRING . '(128) NOT NULL',
-					 'password_hash' => \yii\db\Schema::TYPE_STRING . '(128) NOT NULL',
-					 'password_reset_token' => \yii\db\Schema::TYPE_STRING . '(32)',
-					 'auth_key' => \yii\db\Schema::TYPE_STRING . '(128)',
-					 'status' => \yii\db\Schema::TYPE_INTEGER . ' NOT NULL DEFAULT ' . \auth\models\User::STATUS_ACTIVE,
-					 'last_visit_time' => \yii\db\Schema::TYPE_TIMESTAMP,
-					 'create_time' => \yii\db\Schema::TYPE_TIMESTAMP . ' NOT NULL',
-					 'update_time' => \yii\db\Schema::TYPE_TIMESTAMP,
-					 'delete_time' => \yii\db\Schema::TYPE_TIMESTAMP,
+					 'id' => Schema::TYPE_PK,
+					 'username' => Schema::TYPE_STRING . '(64) NOT NULL',
+					 'email' => Schema::TYPE_STRING . '(128) NOT NULL',
+					 'password_hash' => Schema::TYPE_STRING . '(128) NOT NULL',
+					 'password_reset_token' => Schema::TYPE_STRING . '(32)',
+					 'auth_key' => Schema::TYPE_STRING . '(128)',
+					 'status' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT ' . \auth\models\User::STATUS_ACTIVE,
+					 'last_visit_time' => Schema::TYPE_TIMESTAMP,
+					 'create_time' => Schema::TYPE_TIMESTAMP . ' NOT NULL',
+					 'update_time' => Schema::TYPE_TIMESTAMP,
+					 'delete_time' => Schema::TYPE_TIMESTAMP,
 				 )
 		);
 		$this->createIndex('User_status_ix', $tableMap['User'], 'status');
@@ -29,9 +30,9 @@ class m000000_000002_CreateUserTables extends \yii\db\Migration
 		$this->createTable(
 			 $tableMap['ProfileFieldType'],
 				 array(
-					 'id' => \yii\db\Schema::TYPE_PK,
-					 'name' => \yii\db\Schema::TYPE_STRING . ' NOT NULL',
-					 'title' => \yii\db\Schema::TYPE_STRING . ' NOT NULL',
+					 'id' => Schema::TYPE_PK,
+					 'name' => Schema::TYPE_STRING . ' NOT NULL',
+					 'title' => Schema::TYPE_STRING . ' NOT NULL',
 				 )
 		);
 		$this->createIndex('ProfileFieldType_name_uk', $tableMap['ProfileFieldType'], 'name', true);
@@ -53,21 +54,21 @@ class m000000_000002_CreateUserTables extends \yii\db\Migration
 		$this->createTable(
 			 $tableMap['ProfileField'],
 				 array(
-					 'id' => \yii\db\Schema::TYPE_PK,
-					 'name' => \yii\db\Schema::TYPE_STRING . '(32) NOT NULL',
-					 'title' => \yii\db\Schema::TYPE_STRING,
-					 'type_id' => \yii\db\Schema::TYPE_INTEGER . ' NOT NULL', // Field Type
-					 'position' => \yii\db\Schema::TYPE_INTEGER . ' NOT NULL',
-					 'required' => \yii\db\Schema::TYPE_BOOLEAN . ' NOT NULL',
-					 'configuration' => \yii\db\Schema::TYPE_TEXT,
+					 'id' => Schema::TYPE_PK,
+					 'name' => Schema::TYPE_STRING . '(32) NOT NULL',
+					 'title' => Schema::TYPE_STRING,
+					 'type_id' => Schema::TYPE_INTEGER . ' NOT NULL', // Field Type
+					 'position' => Schema::TYPE_INTEGER . ' NOT NULL',
+					 'required' => Schema::TYPE_BOOLEAN . ' NOT NULL',
+					 'configuration' => Schema::TYPE_TEXT,
 					 //'size' => 'integer', //Field Size
 					 /*'min_length' => 'integer',
 					'max_length' => 'integer',
 					'match' => 'text',
 					'range' => 'string',*/
-					 'error_message' => \yii\db\Schema::TYPE_STRING,
-					 'default_value' => \yii\db\Schema::TYPE_STRING,
-					 'read_only' => \yii\db\Schema::TYPE_BOOLEAN . ' NOT NULL',
+					 'error_message' => Schema::TYPE_STRING,
+					 'default_value' => Schema::TYPE_STRING,
+					 'read_only' => Schema::TYPE_BOOLEAN . ' NOT NULL',
 				 )
 		);
 		$this->createIndex('ProfileField_name_uk', $tableMap['ProfileField'], 'name', true);
@@ -91,14 +92,14 @@ class m000000_000002_CreateUserTables extends \yii\db\Migration
 		$this->createTable(
 			 $tableMap['ProfileFieldValue'],
 				 array(
-					 'id' => \yii\db\Schema::TYPE_PK,
-					 'user_id' => \yii\db\Schema::TYPE_INTEGER . ' NOT NULL',
-					 'field_id' => \yii\db\Schema::TYPE_INTEGER . ' NOT NULL',
-					 'value' => \yii\db\Schema::TYPE_TEXT,
+					 'id' => Schema::TYPE_PK,
+					 'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+					 'field_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+					 'value' => Schema::TYPE_TEXT,
 				 )
 		);
 		$this->createIndex('Profile_field_ix', $tableMap['ProfileFieldValue'], 'field_id');
-		$this->createIndex('Profile_value_ix', $tableMap['ProfileFieldValue'], 'value');
+		//$this->createIndex('Profile_value_ix', $tableMap['ProfileFieldValue'], 'value');
 		$this->addForeignKey('Profile_user_fk', $tableMap['ProfileFieldValue'], 'user_id', $tableMap['User'], 'id');
 		$this->addForeignKey('Profile_field_fk', $tableMap['ProfileFieldValue'], 'field_id', $tableMap['ProfileField'], 'id');
 
