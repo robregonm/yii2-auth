@@ -48,13 +48,4 @@ class Module extends \yii\base\Module
 			'@auth' => __DIR__
 		]);	}
 
-    /**
-     * Returns the module version number.
-     * @return string the version.
-     */
-    public function getVersion()
-    {
-        return '1.0.0';
-    }
-
 }
