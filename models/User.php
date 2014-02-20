@@ -3,6 +3,8 @@
 namespace auth\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\Security;
@@ -50,12 +52,14 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		return [
 			'timestamp' => [
-				'class' => 'yii\behaviors\AutoTimestamp',
+				'class' => 'yii\behaviors\TimestampBehavior',
 				'attributes' => [
 					self::EVENT_BEFORE_INSERT => ['create_time', 'update_time'],
 					self::EVENT_BEFORE_DELETE => 'delete_time',
 				],
-				'timestamp' => new Expression('CURRENT_TIMESTAMP')
+				'value' => function () {
+						return new Expression('CURRENT_TIMESTAMP');
+				}
 			],
 		];
 	}
