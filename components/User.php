@@ -38,9 +38,9 @@ class User extends BaseUser
 	/**
 	 * @inheritdoc
 	 */
-	protected function afterLogin($identity, $cookieBased)
+	protected function afterLogin($identity, $cookieBased, $duration)
 	{
-		parent::afterLogin($identity, $cookieBased);
+		parent::afterLogin($identity, $cookieBased, $duration);
 		$this->identity->setScenario(self::EVENT_AFTER_LOGIN);
 		$this->identity->setAttribute('last_visit_time', new Expression('CURRENT_TIMESTAMP'));
 		// $this->identity->setAttribute('login_ip', ip2long(\Yii::$app->getRequest()->getUserIP()));
