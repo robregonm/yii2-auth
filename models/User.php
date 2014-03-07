@@ -59,7 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
 				],
 				'value' => function () {
 						return new Expression('CURRENT_TIMESTAMP');
-				}
+					}
 			],
 		];
 	}
@@ -92,6 +92,36 @@ class User extends ActiveRecord implements IdentityInterface
 	public static function findByUsername($username)
 	{
 		return static::find(['username' => $username, 'status' => static::STATUS_ACTIVE]);
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function findIdentityByAccessToken($token)
+	{
+		throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+	}
+
+	/**
+	 * Finds user by password reset token
+	 *
+	 * @param string $token password reset token
+	 * @return static|null
+	 */
+	public static function findByPasswordResetToken($token)
+	{
+		$expire = Yii::$app->params['user.passwordResetTokenExpire'];
+		$parts = explode('_', $token);
+		$timestamp = (int)end($parts);
+		if ($timestamp + $expire < time()) {
+			// token expired
+			return null;
+		}
+
+		return static::find([
+			'password_reset_token' => $token,
+			'status' => self::STATUS_ACTIVE,
+		]);
 	}
 
 	/**
