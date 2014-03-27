@@ -21,4 +21,6 @@ return [
 	'Username or Email' => 'Usuario o Email',
 	'Remember Me' => 'Recordarme',
 	'Please fill out the following fields to login:' => 'Por favor, ingrese los siguientes datos para iniciar sesión:',
+	'Create' => 'Crear',
+	'Update' => 'Actualizar',
 ];
