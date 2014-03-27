@@ -11,7 +11,7 @@ class m000000_000001_CreateRbacTables extends \yii\db\Migration
 		}
 
 		/** @var \yii\rbac\DbManager $authManager */
-		$authManager = Yii::$app->getComponent('authManager');
+		$authManager = Yii::$app->get('authManager');
 
 		if (!$authManager) {
 			throw new \yii\console\Exception('"authManager" component must be configured in console config file (e.g. config/console.php)');
@@ -37,7 +37,7 @@ class m000000_000001_CreateRbacTables extends \yii\db\Migration
 
 	public function safeDown()
 	{
-		$authManager = Yii::$app->getComponent('authManager');
+		$authManager = Yii::$app->get('authManager');
 		$this->dropTable($authManager->assignmentTable);
 		$this->dropTable($authManager->itemChildTable);
 		$this->dropTable($authManager->itemTable);
