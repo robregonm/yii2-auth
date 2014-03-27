@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'username',
 			'email:email',
 			[
-				'name' => 'status',
+				'attribute' => 'status',
 				'value' => $model->getStatus()
 			],
 			'last_visit_time',
