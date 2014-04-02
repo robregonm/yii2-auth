@@ -30,7 +30,7 @@ class LoginForm extends Model
 			['password', 'validatePassword'],
 			// rememberMe must be a boolean value
 			['rememberMe', 'boolean'],
-			['verifyCode', 'captcha', 'on' => 'withCaptcha'],
+			['verifyCode', 'captcha', 'captchaAction' => 'auth/default/captcha', 'on' => 'withCaptcha'],
 		];
 	}
 
