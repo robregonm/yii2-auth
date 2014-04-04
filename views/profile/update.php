@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = Yii::t('auth.user', 'Update');
 
 		<?= $form->field($model, 'email')->textInput(['maxlength' => 128, 'type' => 'email']) ?>
 
-		<?= $form->field($model, 'password')->textInput(['maxlength' => 128]) ?>
+		<?= $form->field($model, 'password')->passwordInput() ?>
 
 		<?php if ($model->getIsSuperAdmin()): // ToDo: Allow admins too ?>
 			<?=
