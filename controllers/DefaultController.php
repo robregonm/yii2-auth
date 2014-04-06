@@ -23,7 +23,7 @@ class DefaultController extends Controller
 	{
 		return [
 			'access' => [
-				'class' => \yii\web\AccessControl::className(),
+				'class' => \yii\filters\AccessControl::className(),
 				'only' => ['logout', 'signup'],
 				'rules' => [
 					[
