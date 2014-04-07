@@ -72,6 +72,7 @@ class ProfileController extends Controller
 	public function actionUpdate()
 	{
 		$model = $this->findModel();
+		$model->setScenario('profile');
 
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->id]);

@@ -232,7 +232,7 @@ class User extends ActiveRecord implements IdentityInterface
 	public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
-			if (($this->isNewRecord || $this->getScenario() === 'resetPassword') && !empty($this->password)) {
+			if (($this->isNewRecord || in_array($this->getScenario(), ['resetPassword', 'profile'])) && !empty($this->password)) {
 				$this->password_hash = Security::generatePasswordHash($this->password);
 			}
 			if ($this->isNewRecord) {
