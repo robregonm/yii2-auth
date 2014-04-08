@@ -129,7 +129,7 @@ class DefaultController extends Controller
 
 	public function actionResetPassword($token)
 	{
-		$model = User::find([
+		$model = User::findOne([
 			'password_reset_token' => $token,
 			'status' => User::STATUS_ACTIVE,
 		]);
@@ -151,7 +151,7 @@ class DefaultController extends Controller
 
 	private function sendPasswordResetEmail($email)
 	{
-		$user = User::find([
+		$user = User::findOne([
 			'status' => User::STATUS_ACTIVE,
 			'email' => $email,
 		]);

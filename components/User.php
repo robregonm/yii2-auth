@@ -7,6 +7,7 @@
 
 namespace auth\components;
 
+use yii\web\IdentityInterface;
 use yii\web\User as BaseUser;
 use yii\db\Expression;
 
