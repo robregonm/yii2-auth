@@ -68,3 +68,12 @@ Auth module is released under the BSD-3 License. See the bundled `LICENSE.md` fo
 #INSTALLATION
 
 ./yii migrate/up --migrationPath=@auth/migrations
+
+## URLs
+
+* Login: `yourhost/auth/default/login`
+* Logout: `yourhost/auth/default/logout`
+* Sign-up: `yourhost/auth/default/signup`
+* Reset Password: `yourhost/auth/default/reset-password`
+* User management: `yourhost/auth/user/index`
+* User profile: `yourhost/auth/profile/view`
