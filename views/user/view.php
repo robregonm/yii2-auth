@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'password_reset_token',
 			'auth_key',
 			[
-				'name' => 'status',
+				'attribute' => 'status',
 				'value' => $model->getStatus()
 			],
 			'last_visit_time',
