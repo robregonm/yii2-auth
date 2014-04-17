@@ -67,9 +67,9 @@ class User extends ActiveRecord implements IdentityInterface
 	public function getStatus($status = null)
 	{
 		if ($status === null) {
-			return $this->statuses[$this->status];
+			return Yii::t('auth.user', $this->statuses[$this->status]);
 		}
-		return $this->statuses[$status];
+		return Yii::t('auth.user', $this->statuses[$status]);
 	}
 
 	/**

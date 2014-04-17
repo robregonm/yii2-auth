@@ -9,7 +9,7 @@ use yii\grid\GridView;
  * @var auth\models\UserSearch $searchModel
  */
 
-$this->title = 'Users';
+$this->title = Yii::t('auth.user', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
 	<p>
-		<?= Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Create User', ['create'], ['class' => 'btn btn-success']) ?>
+		<?= Html::a('<i class="glyphicon glyphicon-plus-sign"></i> ' . Yii::t('auth.user', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
 	</p>
 
 	<?php echo GridView::widget([
