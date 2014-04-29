@@ -11,7 +11,7 @@ use yii\captcha\Captcha;
 $this->title = \Yii::t('auth.user', 'Login');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login center-block col-lg-3" style="float:none;">
+<div class="site-login center-block col-lg-3 col-md-4 col-sm-6" style="float:none;">
 	<div class="form-signin-heading">
 		<h1><?= Html::encode($this->title) ?></h1>
 	</div>
