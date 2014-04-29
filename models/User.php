@@ -254,6 +254,7 @@ class User extends ActiveRecord implements IdentityInterface
 		try {
 			$result = false;
 			if ($this->beforeDelete()) {
+				$this->setAttribute('status', static::STATUS_DELETED);
 				$this->save(false);
 			}
 			if ($transaction !== null) {
