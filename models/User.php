@@ -71,7 +71,43 @@ class User extends ActiveRecord implements IdentityInterface
 		}
 		return Yii::t('auth.user', $this->statuses[$status]);
 	}
+	
+	/**
+	Return user Role
+	**/
+	public function getRole($id = null)
+	{
+		/** @var \yii\rbac\DbManager $authManager */
+		$authManager = Yii::$app->get('authManager');
+			
+		if($id===null)
+		{
+			
+			$Ridentity = $authManager->getRolesByUser($this->id);
 
+		}
+		else
+		{
+			$Ridentity = $authManager->getRolesByUser($id);
+		}
+		
+		if($Ridentity)
+		{
+			foreach ($Ridentity as $item)
+			{
+			   $role = $item->name;
+			   
+			}
+		}
+		else
+		{
+			$role=null;
+		}
+		
+		
+		return $role;
+		
+	}
 	/**
 	 * Finds an identity by the given ID.
 	 *
@@ -174,6 +210,7 @@ class User extends ActiveRecord implements IdentityInterface
 		return [
 			['status', 'default', 'value' => static::STATUS_ACTIVE, 'on' => 'signup'],
 			['status', 'safe'],
+			['role', 'safe'],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
 			['email', 'unique', 'message' => Yii::t('auth.user', 'This username has already been taken.')],
@@ -215,6 +252,7 @@ class User extends ActiveRecord implements IdentityInterface
 			'password_reset_token' => Yii::t('auth.user', 'Password Reset Token'),
 			'auth_key' => Yii::t('auth.user', 'Auth Key'),
 			'status' => Yii::t('auth.user', 'Status'),
+			'role' => Yii::t('auth.user', 'Role'),
 			'last_visit_time' => Yii::t('auth.user', 'Last Visit Time'),
 			'create_time' => Yii::t('auth.user', 'Create Time'),
 			'update_time' => Yii::t('auth.user', 'Update Time'),
@@ -285,7 +323,7 @@ class User extends ActiveRecord implements IdentityInterface
 			return $this->_isSuperAdmin;
 		}
 
-		$this->_isSuperAdmin = in_array($this->username, Yii::$app->getModule('auth')->superAdmins);
+		$this->_isSuperAdmin = in_array($this->role, Yii::$app->getModule('auth')->superAdmins);
 		return $this->_isSuperAdmin;
 	}
 
