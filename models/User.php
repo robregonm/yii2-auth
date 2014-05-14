@@ -176,7 +176,7 @@ class User extends ActiveRecord implements IdentityInterface
 			['status', 'safe'],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
-			['email', 'unique', 'message' => Yii::t('auth.user', 'This username has already been taken.')],
+			['username', 'unique', 'message' => Yii::t('auth.user', 'This username has already been taken.')],
 			['username', 'string', 'min' => 2, 'max' => 255],
 
 			['email', 'filter', 'filter' => 'trim'],
