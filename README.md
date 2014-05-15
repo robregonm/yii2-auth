@@ -23,13 +23,7 @@ to the require section of your `composer.json` file.
 
 ## Usage
 
-Once the extension is installed, simply run migrations:
-
-```bash
-$ php yii migrate/up --migrationPath=@auth/migrations
-```
-
-And modify your application configuration as follows:
+Once the extension is installed, modify your application configuration to include:
 
 ```php
 return [
@@ -48,7 +42,8 @@ return [
 	                'ProfileField' => 'profile_field',
 	                'ProfileFieldType' => 'profile_field_type',
 	            ],
-		...
+	        ],
+	    ...
 	],
 	...
 	'components' => [
@@ -59,6 +54,12 @@ return [
 	    ...
 	]
 ];
+```
+
+And run migrations:
+
+```bash
+$ php yii migrate/up --migrationPath=@auth/migrations
 ```
 
 ## License
