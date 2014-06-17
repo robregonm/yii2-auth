@@ -62,6 +62,6 @@ class User extends BaseUser
 		if ($this->getIsSuperAdmin()) {
 			return true;
 		}
-		return parent::checkAccess($operation, $params, $allowCaching);
+		return parent::can($operation, $params, $allowCaching);
 	}
 }
