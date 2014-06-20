@@ -82,7 +82,13 @@ class LoginForm extends Model
 	private function getUser()
 	{
 		if ($this->_user === false) {
-			$this->_user = User::findByUsername($this->username);
+			
+			// build query based on email and/or username login properties
+			
+			$this->_user = User::find()
+		          ->where(["email" => $this->username])
+		          ->orWhere(["username" => $this->username])
+		          ->one();
 		}
 		return $this->_user;
 	}
