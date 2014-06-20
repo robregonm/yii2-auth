@@ -87,9 +87,8 @@ class LoginForm extends Model
 			
 			$user = User::find();
 					            
-			$user->orWhere(["email" => $this->username]);
-					
-			$user->orWhere(["username" => $this->username]);
+			$user->orWhere(["email" => $this->username])
+			     ->orWhere(["username" => $this->username]);
 					            
 			// get and store user
 			$this->_user = $user->one();
