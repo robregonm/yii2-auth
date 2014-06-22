@@ -72,8 +72,8 @@ class User extends ActiveRecord implements IdentityInterface
 		return Yii::t('auth.user', $this->statuses[$status]);
 	}
 	
-	/**
-	Return user Role
+/**
+	Return user Roles
 	**/
 	public function getRole($id = null)
 	{
@@ -95,7 +95,7 @@ class User extends ActiveRecord implements IdentityInterface
 		{
 			foreach ($Ridentity as $item)
 			{
-			   $role = $item->name;
+			   $role[$item->name] = $item->name;
 			   
 			}
 		}
@@ -107,6 +107,26 @@ class User extends ActiveRecord implements IdentityInterface
 		
 		return $role;
 		
+	}
+	
+	function getRoleArray()
+	{
+		return implode(',', $this->role);
+	}
+	
+	public function getRoleTypes()
+	{
+		/** @var \yii\rbac\DbManager $authManager */
+		$roller = Yii::$app->get('authManager')->getRoles();
+	
+		foreach ($roller as $item)
+		{
+		   $role[$item->name] = $item->name;
+		   
+		}
+		
+
+		return $role;
 	}
 	/**
 	 * Finds an identity by the given ID.
@@ -210,7 +230,6 @@ class User extends ActiveRecord implements IdentityInterface
 		return [
 			['status', 'default', 'value' => static::STATUS_ACTIVE, 'on' => 'signup'],
 			['status', 'safe'],
-			['role', 'safe'],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
 			['email', 'unique', 'message' => Yii::t('auth.user', 'This username has already been taken.')],
