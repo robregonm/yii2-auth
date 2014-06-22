@@ -342,7 +342,7 @@ class User extends ActiveRecord implements IdentityInterface
 			return $this->_isSuperAdmin;
 		}
 
-		$this->_isSuperAdmin = in_array($this->role, Yii::$app->getModule('auth')->superAdmins);
+		$this->_isSuperAdmin = in_array($this->username, Yii::$app->getModule('auth')->superAdmins);
 		return $this->_isSuperAdmin;
 	}
 
