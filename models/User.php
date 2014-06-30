@@ -7,7 +7,6 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
-use yii\helpers\Security;
 use yii\web\IdentityInterface;
 
 /**
@@ -157,7 +156,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public function validatePassword($password)
 	{
-		return Security::validatePassword($password, $this->password_hash);
+		return Yii::$app->getSecurity()->validatePassword($password, $this->password_hash);
 	}
 
 	/**
@@ -236,10 +235,10 @@ class User extends ActiveRecord implements IdentityInterface
 	{
 		if (parent::beforeSave($insert)) {
 			if (($this->isNewRecord || in_array($this->getScenario(), ['resetPassword', 'profile'])) && !empty($this->password)) {
-				$this->password_hash = Security::generatePasswordHash($this->password);
+				$this->password_hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
 			}
 			if ($this->isNewRecord) {
-				$this->auth_key = Security::generateRandomKey();
+				$this->auth_key = Yii::$app->getSecurity()->generateRandomKey();
 			}
 			if ($this->getScenario() !== \yii\web\User::EVENT_AFTER_LOGIN) {
 				$this->setAttribute('update_time', new Expression('CURRENT_TIMESTAMP'));
