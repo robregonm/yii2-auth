@@ -19,7 +19,7 @@ use auth\models\User;
 
 		<?= $form->field($model, 'email')->textInput(['maxlength' => 128, 'type' => 'email']) ?>
 
-		<?= $form->field($model, 'password')->textInput(['maxlength' => 128]) ?>
+		<?= $form->field($model, 'password')->passwordInput(['maxlength' => 128]) ?>
 
 	<?=	$form->field($model, 'status')->dropDownList([
 		User::STATUS_INACTIVE => $model->getStatus(User::STATUS_INACTIVE),
