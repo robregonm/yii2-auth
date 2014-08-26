@@ -57,8 +57,8 @@ class User extends ActiveRecord implements IdentityInterface
 					self::EVENT_BEFORE_DELETE => 'delete_time',
 				],
 				'value' => function () {
-						return new Expression('CURRENT_TIMESTAMP');
-					}
+					return new Expression('CURRENT_TIMESTAMP');
+				}
 			],
 		];
 	}
@@ -91,8 +91,8 @@ class User extends ActiveRecord implements IdentityInterface
 	public static function findByUsername($username)
 	{
 		return static::find()
-		->andWhere(['and', ['or', ['username' => $username], ['email' => $username]], ['status' => static::STATUS_ACTIVE]])
-		->one();
+					 ->andWhere(['and', ['or', ['username' => $username], ['email' => $username]], ['status' => static::STATUS_ACTIVE]])
+					 ->one();
 	}
 
 	/**
@@ -111,7 +111,7 @@ class User extends ActiveRecord implements IdentityInterface
 	 */
 	public static function findByPasswordResetToken($token)
 	{
-		$expire = Yii::$app->params['user.passwordResetTokenExpire'];
+		$expire = Yii::$app->getModule('auth')->passwordResetTokenExpire;
 		$parts = explode('_', $token);
 		$timestamp = (int)end($parts);
 		if ($timestamp + $expire < time()) {
@@ -293,5 +293,21 @@ class User extends ActiveRecord implements IdentityInterface
 	public function login($duration = 0)
 	{
 		return Yii::$app->user->login($this, $duration);
+	}
+
+	/**
+	 * Generates new password reset token
+	 */
+	public function generatePasswordResetToken()
+	{
+		$this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+	}
+
+	/**
+	 * Removes password reset token
+	 */
+	public function removePasswordResetToken()
+	{
+		$this->password_reset_token = null;
 	}
 }

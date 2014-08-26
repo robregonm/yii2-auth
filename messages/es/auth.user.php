@@ -13,7 +13,7 @@ return [
 	'Create Time' => 'Fecha Creación',
 	'Update Time' => 'Fecha Actualización',
 	'Delete Time' => 'Fecha de Eliminación',
-	'Incorrect username or password.' => 'Nombre de usuario o clave incorrectas.',
+	'Incorrect username or password.' => 'Nombre de usuario o contraseña incorrectas.',
 	'Profile' => 'Perfil',
 	'View Profile' => 'Ver Perfil',
 	'Update Profile' => 'Actualizar Perfil',
@@ -32,4 +32,5 @@ return [
 	'Inactive' => 'Inactivo',
 	'Active' => 'Activo',
 	'Suspended' => 'Suspendido',
+	'Forgot password?' => '¿Olvidó su contraseña?'
 ];
