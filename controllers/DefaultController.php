@@ -18,7 +18,7 @@ class DefaultController extends Controller
 	 */
 	public $module;
 
-	private $loginAttemptsVar = '__LoginAttemptsCount';
+	protected $loginAttemptsVar = '__LoginAttemptsCount';
 
 	public function behaviors()
 	{
@@ -80,12 +80,12 @@ class DefaultController extends Controller
 		]);
 	}
 
-	private function getLoginAttempts()
+	protected function getLoginAttempts()
 	{
 		return Yii::$app->getSession()->get($this->loginAttemptsVar, 0);
 	}
 
-	private function setLoginAttempts($value)
+	protected function setLoginAttempts($value)
 	{
 		Yii::$app->getSession()->set($this->loginAttemptsVar, $value);
 	}
