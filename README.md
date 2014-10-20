@@ -50,9 +50,16 @@ return [
 	...
 	'components' => [
 	    ...
-	    'user' => [
-	        'class' => 'auth\components\User',
-	    ],
+		'authManager' => [
+			'class' => '\yii\rbac\DbManager',
+			'ruleTable' => 'AuthRule', // Optional
+			'itemTable' => 'AuthItem',  // Optional
+			'itemChildTable' => 'AuthItemChild',  // Optional
+			'assignmentTable' => 'AuthAssignment',  // Optional
+		],
+		'user' => [
+			'class' => 'auth\components\User',
+		],
 	    ...
 	]
 ];
