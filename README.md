@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require robregonm/yii2-auth "dev-master"
+$ php composer.phar require robregonm/yii2-auth "*"
 ```
 
 or add
 
 ```
-"robregonm/yii2-auth": "dev-master"
+"robregonm/yii2-auth": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -34,6 +34,8 @@ return [
 	            'layout' => '//homepage', // Layout when not logged in yet
 	            'layoutLogged' => '//main', // Layout for logged in users
 	            'attemptsBeforeCaptcha' => 3, // Optional
+	            'supportEmail' => 'support@mydomain.com', // Email for notifications
+	            'passwordResetTokenExpire' => 3600, // Seconds for token expiration
 	            'superAdmins' => ['admin'], // SuperAdmin users
 	            'tableMap' => [ // Optional, but if defined, all must be declared
 	                'User' => 'user',
@@ -48,9 +50,16 @@ return [
 	...
 	'components' => [
 	    ...
-	    'user' => [
-	        'class' => 'auth\components\User',
-	    ],
+		'authManager' => [
+			'class' => '\yii\rbac\DbManager',
+			'ruleTable' => 'AuthRule', // Optional
+			'itemTable' => 'AuthItem',  // Optional
+			'itemChildTable' => 'AuthItemChild',  // Optional
+			'assignmentTable' => 'AuthAssignment',  // Optional
+		],
+		'user' => [
+			'class' => 'auth\components\User',
+		],
 	    ...
 	]
 ];

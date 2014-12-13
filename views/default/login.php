@@ -42,4 +42,5 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 
 	<?php ActiveForm::end(); ?>
+	<p class="text-center"><?= Html::a(\Yii::t('auth.user', 'Forgot password?'), ['default/request-password-reset']) ?></p>
 </div>

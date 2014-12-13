@@ -2,10 +2,11 @@
 
 namespace auth\controllers;
 
+use auth\models\PasswordResetRequestForm;
+use auth\models\ResetPasswordForm;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\web\HttpException;
 use yii\helpers\Security;
 use auth\models\LoginForm;
 use auth\models\User;
@@ -17,7 +18,7 @@ class DefaultController extends Controller
 	 */
 	public $module;
 
-	private $loginAttemptsVar = '__LoginAttemptsCount';
+	protected $loginAttemptsVar = '__LoginAttemptsCount';
 
 	public function behaviors()
 	{
@@ -79,12 +80,12 @@ class DefaultController extends Controller
 		]);
 	}
 
-	private function getLoginAttempts()
+	protected function getLoginAttempts()
 	{
 		return Yii::$app->getSession()->get($this->loginAttemptsVar, 0);
 	}
 
-	private function setLoginAttempts($value)
+	protected function setLoginAttempts($value)
 	{
 		Yii::$app->getSession()->set($this->loginAttemptsVar, $value);
 	}
@@ -112,16 +113,17 @@ class DefaultController extends Controller
 
 	public function actionRequestPasswordReset()
 	{
-		$model = new User();
-		$model->scenario = 'requestPasswordResetToken';
-		if ($model->load($_POST) && $model->validate()) {
-			if ($this->sendPasswordResetEmail($model->email)) {
+		$model = new PasswordResetRequestForm();
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+			if ($model->sendEmail()) {
 				Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
+
 				return $this->goHome();
 			} else {
-				Yii::$app->getSession()->setFlash('error', 'There was an error sending email.');
+				Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
 			}
 		}
+
 		return $this->render('requestPasswordResetToken', [
 			'model' => $model,
 		]);
@@ -129,52 +131,20 @@ class DefaultController extends Controller
 
 	public function actionResetPassword($token)
 	{
-		$model = User::findOne([
-			'password_reset_token' => $token,
-			'status' => User::STATUS_ACTIVE,
-		]);
-
-		if (!$model) {
-			throw new BadRequestHttpException('Wrong password reset token.');
+		try {
+			$model = new ResetPasswordForm($token);
+		} catch (InvalidParamException $e) {
+			throw new BadRequestHttpException($e->getMessage());
 		}
 
-		$model->scenario = 'resetPassword';
-		if ($model->load($_POST) && $model->save()) {
+		if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
 			Yii::$app->getSession()->setFlash('success', 'New password was saved.');
+
 			return $this->goHome();
 		}
 
 		return $this->render('resetPassword', [
 			'model' => $model,
 		]);
-	}
-
-	private function sendPasswordResetEmail($email)
-	{
-		$user = User::findOne([
-			'status' => User::STATUS_ACTIVE,
-			'email' => $email,
-		]);
-
-		if (!$user) {
-			return false;
-		}
-
-		$user->password_reset_token = Security::generateRandomKey();
-		if ($user->save(false)) {
-			// todo: refactor it with mail component. pay attention to the arrangement of mail view files
-			$fromEmail = \Yii::$app->params['supportEmail'];
-			$name = '=?UTF-8?B?' . base64_encode(\Yii::$app->name . ' robot') . '?=';
-			$subject = '=?UTF-8?B?' . base64_encode('Password reset for ' . \Yii::$app->name) . '?=';
-			$body = $this->renderPartial('/emails/passwordResetToken', [
-				'user' => $user,
-			]);
-			$headers = "From: $name <{$fromEmail}>\r\n" .
-				"MIME-Version: 1.0\r\n" .
-				"Content-type: text/plain; charset=UTF-8";
-			return mail($email, $subject, $body, $headers);
-		}
-
-		return false;
 	}
 }

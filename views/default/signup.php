@@ -2,29 +2,33 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/**
- * @var yii\web\View $this
- * @var yii\widgets\ActiveForm $form
- * @var \frontend\models\SignupForm $model
- */
-$this->title = 'Registrieren';
+$this->title = 'Sign up';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-signup">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+            </div>
+            <div class="panel-body">
+                <?php $form = ActiveForm::begin([
+                    'id' => 'registration-form',
+                ]); ?>
 
-    <p>Bitte füllen Sie dieses Formular aus, um sich zu registrieren:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
                 <?= $form->field($model, 'username') ?>
+
                 <?= $form->field($model, 'email') ?>
+
                 <?= $form->field($model, 'password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Registrieren', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-                </div>
-            <?php ActiveForm::end(); ?>
+
+                <?= Html::submitButton('Sign up', ['class' => 'btn btn-success btn-block']) ?>
+
+                <?php ActiveForm::end(); ?>
+            </div>
         </div>
+        <p class="text-center">
+            <?= Html::a('Already registered? Sign in!', ['/auth/default/login']) ?>
+        </p>
     </div>
 </div>
