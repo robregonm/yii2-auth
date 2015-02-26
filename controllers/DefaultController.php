@@ -63,8 +63,14 @@ class DefaultController extends Controller
 
 		$model = new LoginForm();
 
+        if ($this->module instanceof \auth\Module) {
+            $module = $this->module;
+        } else {
+            $module = Yii::$app->getModule('auth');
+        }
+
 		//make the captcha required if the unsuccessful attempts are more of thee
-		if ($this->getLoginAttempts() >= $this->module->attemptsBeforeCaptcha) {
+		if ($this->getLoginAttempts() >= $module->attemptsBeforeCaptcha) {
 			$model->scenario = 'withCaptcha';
 		}
 
