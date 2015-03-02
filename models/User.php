@@ -234,12 +234,14 @@ class User extends ActiveRecord implements IdentityInterface
 	public function beforeValidate()
 	{
 		if (parent::beforeValidate()) {
-			if ($this->isNewRecord && Yii::$app->getModule('auth')->signupWithEmailOnly) {
+			if (Yii::$app->getModule('auth')->signupWithEmailOnly) {
 				$this->username = $this->email;
 			}
+
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	public function beforeSave($insert)
