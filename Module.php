@@ -43,6 +43,11 @@ class Module extends \yii\base\Module
 
 	public $superAdmins = ['admin'];
 
+    /**
+     * @var boolean Use only email for signup
+     */
+    public $signupWithEmailOnly = false;
+
 	public function init()
 	{
 		parent::init();

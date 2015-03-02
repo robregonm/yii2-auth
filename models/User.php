@@ -231,6 +231,17 @@ class User extends ActiveRecord implements IdentityInterface
 		return $this->hasOne(ProfileFieldValue::className(), ['id' => 'user_id']);
 	}
 
+	public function beforeValidate()
+	{
+		if (parent::beforeValidate()) {
+			if ($this->isNewRecord && Yii::$app->getModule('auth')->signupWithEmailOnly) {
+				$this->username = $this->email;
+			}
+		}
+
+		return true;
+	}
+
 	public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
