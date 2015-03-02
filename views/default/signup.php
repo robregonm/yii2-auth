@@ -16,7 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id' => 'registration-form',
                 ]); ?>
 
-                <?= $form->field($model, 'username') ?>
+                <?php if (false === Yii::$app->getModule('auth')->signupWithEmailOnly): ?>
+                    <?= $form->field($model, 'username') ?>
+                <?php endif ?>
 
                 <?= $form->field($model, 'email') ?>
 

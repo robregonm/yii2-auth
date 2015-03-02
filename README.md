@@ -37,6 +37,7 @@ return [
 	            'supportEmail' => 'support@mydomain.com', // Email for notifications
 	            'passwordResetTokenExpire' => 3600, // Seconds for token expiration
 	            'superAdmins' => ['admin'], // SuperAdmin users
+	            'signupWithEmailOnly' => false, // false = signup with username + email, true = only email signup
 	            'tableMap' => [ // Optional, but if defined, all must be declared
 	                'User' => 'user',
 	                'UserStatus' => 'user_status',
