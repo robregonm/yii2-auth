@@ -192,7 +192,7 @@ class User extends ActiveRecord implements IdentityInterface
             [
                 'status',
                 'in',
-                [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_INACTIVE, self::STATUS_SUSPENDED]
+                'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_INACTIVE, self::STATUS_SUSPENDED]
             ],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
