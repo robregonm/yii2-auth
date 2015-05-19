@@ -212,8 +212,8 @@ class User extends ActiveRecord implements IdentityInterface
 	public function scenarios()
 	{
 		return [
-			'profile' => ['username', 'email', 'password'],
-			'resetPassword' => ['password'],
+			'profile' => ['username', 'email', 'password_hash'],
+			'resetPassword' => ['password_hash'],
 			'requestPasswordResetToken' => ['email'],
 			'login' => ['last_visit_time'],
 		] + parent::scenarios();
@@ -228,7 +228,6 @@ class User extends ActiveRecord implements IdentityInterface
 			'id' => 'ID',
 			'username' => Yii::t('auth.user', 'Username'),
 			'email' => Yii::t('auth.user', 'Email'),
-			'password' => Yii::t('auth.user', 'Password'),
 			'password_hash' => Yii::t('auth.user', 'Password Hash'),
 			'password_reset_token' => Yii::t('auth.user', 'Password Reset Token'),
 			'auth_key' => Yii::t('auth.user', 'Auth Key'),
@@ -261,9 +260,6 @@ class User extends ActiveRecord implements IdentityInterface
 	public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
-			if (($this->isNewRecord || in_array($this->getScenario(), ['resetPassword', 'profile'])) && !empty($this->password)) {
-				$this->password_hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
-			}
 			if ($this->isNewRecord) {
 				$this->auth_key = Yii::$app->getSecurity()->generateRandomString();
 			}
