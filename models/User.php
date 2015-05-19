@@ -204,8 +204,6 @@ class User extends ActiveRecord implements IdentityInterface
 			['email', 'email'],
 			['email', 'unique', 'message' => Yii::t('auth.user', 'This email address has already been taken.')],
 			['email', 'exist', 'message' => Yii::t('auth.user', 'There is no user with such email.'), 'on' => 'requestPasswordResetToken'],
-
-			['password', 'string', 'min' => 6],
 		];
 	}
 
