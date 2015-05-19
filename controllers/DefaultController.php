@@ -4,6 +4,7 @@ namespace auth\controllers;
 
 use auth\models\PasswordResetRequestForm;
 use auth\models\ResetPasswordForm;
+use auth\models\SignupForm;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -102,21 +103,20 @@ class DefaultController extends Controller
 		return $this->goHome();
 	}
 
-	public function actionSignup()
-	{
-		$model = new User();
-		$model->setScenario('signup');
-		if ($model->load($_POST) && $model->save()) {
-			if (Yii::$app->getUser()->login($model)) {
-				return $this->goHome();
-			}
-		}
-
-		return $this->render('signup', [
-			'model' => $model,
-		]);
-	}
-
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
 	public function actionRequestPasswordReset()
 	{
 		$model = new PasswordResetRequestForm();

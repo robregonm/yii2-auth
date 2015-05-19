@@ -173,8 +173,12 @@ class User extends ActiveRecord implements IdentityInterface
 	public function rules()
 	{
 		return [
-			['status', 'default', 'value' => static::STATUS_ACTIVE, 'on' => 'signup'],
-			['status', 'safe'],
+			['status', 'default', 'value' => self::STATUS_ACTIVE],
+            [
+                'status',
+                'in',
+                [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_INACTIVE, self::STATUS_SUSPENDED]
+            ],
 			['username', 'filter', 'filter' => 'trim'],
 			['username', 'required'],
 			['username', 'unique', 'message' => Yii::t('auth.user', 'This username has already been taken.')],
@@ -186,7 +190,6 @@ class User extends ActiveRecord implements IdentityInterface
 			['email', 'unique', 'message' => Yii::t('auth.user', 'This email address has already been taken.')],
 			['email', 'exist', 'message' => Yii::t('auth.user', 'There is no user with such email.'), 'on' => 'requestPasswordResetToken'],
 
-			['password', 'required', 'on' => 'signup'],
 			['password', 'string', 'min' => 6],
 		];
 	}
@@ -194,7 +197,6 @@ class User extends ActiveRecord implements IdentityInterface
 	public function scenarios()
 	{
 		return [
-			'signup' => ['username', 'email', 'password'],
 			'profile' => ['username', 'email', 'password'],
 			'resetPassword' => ['password'],
 			'requestPasswordResetToken' => ['email'],
@@ -234,9 +236,6 @@ class User extends ActiveRecord implements IdentityInterface
 	public function beforeValidate()
 	{
 		if (parent::beforeValidate()) {
-			if (Yii::$app->getModule('auth')->signupWithEmailOnly) {
-				$this->username = $this->email;
-			}
 
 			return true;
 		}
