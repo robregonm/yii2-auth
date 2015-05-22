@@ -105,6 +105,10 @@ class UserController extends Controller
 		$model = $this->findModel($id);
 		$model->setScenario('profile');
 
+        if (isset($_POST['User']['password'])) {
+            $model->setPassword($_POST['User']['password']);
+        }
+
 		if ($model->load($_POST) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->id]);
 		} else {
