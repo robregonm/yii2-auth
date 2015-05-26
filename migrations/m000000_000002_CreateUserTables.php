@@ -106,7 +106,6 @@ class m000000_000002_CreateUserTables extends \yii\db\Migration
 
 		// Creates the default admin user
 		$adminUser = new \auth\models\User();
-		$adminUser->setScenario();
 
 		echo 'Please type the admin user info: ' . PHP_EOL;
 		$this->readStdinUser('Email (e.g. admin@mydomain.com)', $adminUser, 'email');
