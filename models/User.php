@@ -65,7 +65,63 @@ class User extends ActiveRecord implements IdentityInterface
 		}
 		return Yii::t('auth.user', $this->statuses[$status]);
 	}
+	
+/**
+	Return user Roles
+	**/
+	public function getRole($id = null)
+	{
+		/** @var \yii\rbac\DbManager $authManager */
+		$authManager = Yii::$app->get('authManager');
+			
+		if($id===null)
+		{
+			
+			$Ridentity = $authManager->getRolesByUser($this->id);
 
+		}
+		else
+		{
+			$Ridentity = $authManager->getRolesByUser($id);
+		}
+		
+		if($Ridentity)
+		{
+			foreach ($Ridentity as $item)
+			{
+			   $role[$item->name] = $item->name;
+			   
+			}
+		}
+		else
+		{
+			$role=null;
+		}
+		
+		
+		return $role;
+		
+	}
+	
+	function getRoleArray()
+	{
+		return implode(',', $this->role);
+	}
+	
+	public function getRoleTypes()
+	{
+		/** @var \yii\rbac\DbManager $authManager */
+		$roller = Yii::$app->get('authManager')->getRoles();
+	
+		foreach ($roller as $item)
+		{
+		   $role[$item->name] = $item->name;
+		   
+		}
+		
+
+		return $role;
+	}
 	/**
 	 * Finds an identity by the given ID.
 	 *
@@ -236,6 +292,7 @@ class User extends ActiveRecord implements IdentityInterface
 			'password_reset_token' => Yii::t('auth.user', 'Password Reset Token'),
 			'auth_key' => Yii::t('auth.user', 'Auth Key'),
 			'status' => Yii::t('auth.user', 'Status'),
+			'role' => Yii::t('auth.user', 'Role'),
 			'last_visit_time' => Yii::t('auth.user', 'Last Visit Time'),
 			'create_time' => Yii::t('auth.user', 'Create Time'),
 			'update_time' => Yii::t('auth.user', 'Update Time'),
