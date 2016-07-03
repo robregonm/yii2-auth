@@ -25,6 +25,8 @@ to the require section of your `composer.json` file.
 
 Once the extension is installed, modify your application configuration to include:
 
+File config/web.php
+
 ```php
 return [
 	'modules' => [
@@ -67,6 +69,27 @@ return [
 	]
 ];
 ```
+
+File config/console.php
+```php
+    'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ],
+        'user' => [
+            'class' => 'auth\components\User',
+        ],
+        'db' => $db,
+    ],
+
+    'modules' => [
+        'auth' => [
+                'class' => 'auth\Module',
+                'superAdmins' => ['admin'], // SuperAdmin users
+        ],
+    ],
+```
+
 
 And run migrations:
 
