@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-$ php composer.phar require robregonm/yii2-auth "*"
+$ php composer.phar require johnparra/yii2-auth "*"
 ```
 
 or add
 
 ```
-"robregonm/yii2-auth": "*"
+"johnparra/yii2-auth": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -114,4 +114,3 @@ Auth module is released under the BSD-3 License. See the bundled `LICENSE.md` fo
 * User management: `yourhost/auth/user/index`
 * User profile: `yourhost/auth/profile/view`
 
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=robregonm&url=https://github.com/robregonm/yii2-auth&title=Yii2-PDF&language=&tags=github&category=software) 
