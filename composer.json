@@ -1,14 +1,14 @@
 {
-	"name": "robregonm/yii2-auth",
-	"description": "Yii 2 User Authentication & Role Based Access Control (RBAC) Module",
+	"name": "johnparra/yii2-auth",
+	"description": "Yii 2 User Authentication & Role Based Access Control (RBAC) Module Fork of robregon",
 	"keywords": ["yii", "yii2", "user", "auth", "authentication", "rbac", "access"],
 	"type": "yii2-extension",
 	"license": "BSD-3-Clause",
 	"support": {
-		"issues": "https://github.com/robregonm/yii2-auth/issues?state=open",
+		"issues": "https://github.com/johnparra/yii2-auth/issues?state=open",
 		"forum": "http://www.yiiframework.com/forum/",
 		"wiki": "http://www.yiiframework.com/wiki/",
-		"source": "https://github.com/robregonm/yii2-auth"
+		"source": "https://github.com/johnparra/yii2-auth"
 	},
 	"authors": [
 		{
