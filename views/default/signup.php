@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Sign up';
+$this->title = \Yii::t('auth.user', 'Sign up');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -24,13 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
-                <?= Html::submitButton('Sign up', ['class' => 'btn btn-success btn-block']) ?>
+                <?= Html::submitButton(\Yii::t('auth.user', 'Sign up'), ['class' => 'btn btn-success btn-block']) ?>
 
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
         <p class="text-center">
-            <?= Html::a('Already registered? Sign in!', ['/auth/default/login']) ?>
+            <?= Html::a(\Yii::t('auth.user', 'Already registered? Sign in!'), ['/auth/default/login']) ?>
         </p>
     </div>
 </div>

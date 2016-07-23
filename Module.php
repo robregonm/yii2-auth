@@ -34,9 +34,14 @@ class Module extends \yii\base\Module
 
     public $referralParam = 'ref';
 
+    /*
+     * @var int seconds for activate token email
+     */
+	public $activateTokenExpire = 3600;
 	/**
 	 * @var int Seconds for token expiration
 	 */
+    
 	public $passwordResetTokenExpire = 3600;
 
 	public $supportEmail;
