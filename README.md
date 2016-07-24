@@ -1,5 +1,5 @@
-Auth Module (Fork of robregonm)
-===============================
+Auth Module 
+===========
 
 Auth Module is a flexible user registration, authentication & RBAC module for Yii2. It provides user authentication, registration and RBAC support to your Yii2 site.
 

@@ -34,5 +34,5 @@ return [
 	'Suspended' => 'Suspendido',
 	'Forgot password?' => '¿Olvidó su contraseña?',
 	'Sign up' => 'Registrarse',
-	'Already registered? Sign in!' => 'Ya esta registrado? Ingresa aquí!',
+	'Already registered? Sign in!' => '¿Ya estas registrado? Inicie sesión aquí!',
 ];
