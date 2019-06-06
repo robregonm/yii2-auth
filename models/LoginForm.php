@@ -30,7 +30,7 @@ class LoginForm extends Model
 			['password', 'validatePassword'],
 			// rememberMe must be a boolean value
 			['rememberMe', 'boolean'],
-			['verifyCode', 'captcha', 'captchaAction' => 'auth/default/captcha', 'on' => 'withCaptcha'],
+            		[['verifyCode'], \himiklab\yii2\recaptcha\ReCaptchaValidator2::class],
 		];
 	}
 
