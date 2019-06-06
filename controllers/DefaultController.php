@@ -25,7 +25,7 @@ class DefaultController extends Controller
 	{
 		return [
 			'access' => [
-				'class' => \yii\filters\AccessControl::className(),
+				'class' => \yii\filters\AccessControl::class,
 				'only' => ['logout', 'signup'],
 				'rules' => [
 					[
@@ -49,10 +49,6 @@ class DefaultController extends Controller
 			'error' => [
 				'class' => 'yii\web\ErrorAction',
 			],
-			'captcha' => [
-				'class' => 'yii\captcha\CaptchaAction',
-				'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-			],
 		];
 	}
 
@@ -64,15 +60,10 @@ class DefaultController extends Controller
 
 		$model = new LoginForm();
 
-        if ($this->module instanceof \auth\Module) {
-            $module = $this->module;
-        } else {
-            $module = Yii::$app->getModule('auth');
-        }
-
-		//make the captcha required if the unsuccessful attempts are more of thee
-		if ($this->getLoginAttempts() >= $module->attemptsBeforeCaptcha) {
-			$model->scenario = 'withCaptcha';
+		if ($this->module instanceof \auth\Module) {
+		    $module = $this->module;
+		} else {
+		    $module = Yii::$app->getModule('auth');
 		}
 
 		if ($model->load($_POST) and $model->login()) {
