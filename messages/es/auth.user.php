@@ -32,5 +32,7 @@ return [
 	'Inactive' => 'Inactivo',
 	'Active' => 'Activo',
 	'Suspended' => 'Suspendido',
-	'Forgot password?' => '¿Olvidó su contraseña?'
+	'Forgot password?' => '¿Olvidó su contraseña?',
+	'Sign up' => 'Registrarse',
+	'Already registered? Sign in!' => '¿Ya estas registrado? Inicie sesión aquí!',
 ];

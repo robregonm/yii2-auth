@@ -79,4 +79,21 @@ class SignupForm extends Model
 
         return null;
     }
+
+    public function attributeLabels()
+	{
+		return [
+			'id' => 'ID',
+			'username' => Yii::t('auth.user', 'Username'),
+			'email' => Yii::t('auth.user', 'Email'),
+			'password_hash' => Yii::t('auth.user', 'Password Hash'),
+			'password_reset_token' => Yii::t('auth.user', 'Password Reset Token'),
+			'auth_key' => Yii::t('auth.user', 'Auth Key'),
+			'status' => Yii::t('auth.user', 'Status'),
+			'last_visit_time' => Yii::t('auth.user', 'Last Visit Time'),
+			'create_time' => Yii::t('auth.user', 'Create Time'),
+			'update_time' => Yii::t('auth.user', 'Update Time'),
+			'delete_time' => Yii::t('auth.user', 'Delete Time'),
+		];
+	}
 }
